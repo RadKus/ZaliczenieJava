@@ -77,7 +77,7 @@ public class PrzesylkaPocztowa {
     }
 
     public void ustawNastepnyStatus() {
-        if (Status < 5 && status > 0) {
+        if (status < 5 && status > 0) {
             status ++;
             System.out.println("Aktualny status przesyłki" + zwrocPelnyStatus());
         } else System.out.println("Nie można zmienić statusu - przesyłka jest już dostarczona.");
