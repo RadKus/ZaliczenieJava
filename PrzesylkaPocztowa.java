@@ -57,6 +57,7 @@ public class PrzesylkaPocztowa {
                 '}';
     }
     public void wyswietl() {
+        //nie ma takiej potrzeby, wystarczy System.out.println(toString());
         System.out.println("Dane przesyłki ");
         System.out.println("Adresat: " + adresat);
         System.out.println("Adres " + adres);
@@ -66,6 +67,9 @@ public class PrzesylkaPocztowa {
         System.out.println("Status " + status);
     }
 
+    //ta metoda nie powinna byc statyczna tylko powinna byc powiazana z obiektem na ktorym jest wolana
+    //dodatkowo statusy 1,2,3 to sa magiczne liczby, to powinny byc albo 1) atrybuty private static final o wymownych nazwach
+    // 2) odrebna klasa Enum ktora bedzie przechowywac inta jako wew. atrybut
     public static zwrocPelnyStatus () {
         if (status == 1) {
             System.out.println("nadana");
@@ -76,13 +80,19 @@ public class PrzesylkaPocztowa {
         } else System.out.println("dostarczona");
     }
 
+    //jw.
+    //dodatkowo bardzo dobra praktyka w tego typu metodach jest zwrocenie nowego statusu
+    //blok else daj po klamrach bedzie czytelniej
+    //metoda zwrocPelnyStatus() jest voidem nie wiem czy dobra praktyka jest posiadanie voida w system out println
     public void ustawNastepnyStatus() {
-        if (Status < 5 && status > 0) {
+        if (status < 5 && status > 0) {
             status ++;
             System.out.println("Aktualny status przesyłki" + zwrocPelnyStatus());
         } else System.out.println("Nie można zmienić statusu - przesyłka jest już dostarczona.");
     }
 
+    //nie czytalem opisu zadania ale korzystanie z double/float do obliczania ceny to nie najlepszy pomysl jakos ze jest
+    //tzw floating point np 0.1111 + 0.2222 != 0.3333 lepiej korzystac albo z BigDecimal albo wszystko traktowac jako grosze i pozniej tylko dzielic wynik / 100 i zaokraglic do 2 miejsc po przecinku
     public double obliczCene() {
     double cena = 0;
     if (waga <= 0.5) {
